@@ -23,7 +23,7 @@ module XCPretty
       yellow(PENDING)
     end
 
-    def format_measuring_test(suite, test_case, time)
+    def format_measuring_test(suite, test_case, average, times)
       yellow(MEASURING)
     end
 

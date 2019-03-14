@@ -143,7 +143,8 @@ module XCPretty
     # $1 = suite
     # $2 = test_case
     # $3 = time
-    TEST_CASE_MEASURED_MATCHER = /^[^:]*:[^:]*:\sTest Case\s'-\[(.*)\s(.*)\]'\smeasured\s\[Time,\sseconds\]\saverage:\s(\d*\.\d{3}),/
+    # $4 = comma seperated string of run time values
+    TEST_CASE_MEASURED_MATCHER = /^[^:]*:[^:]*:\sTest Case\s'-\[(.*)\s(.*)\]'\smeasured\s\[Time,\sseconds\]\saverage:\s(\d*\.\d{3}),.*values:\s\[(.*)\]/
 
     PHASE_SUCCESS_MATCHER = /^\*\*\s(.*)\sSUCCEEDED\s\*\*/
 
@@ -381,7 +382,8 @@ module XCPretty
       when MODULE_INCLUDES_ERROR_MATCHER
         formatter.format_error($1)
       when TEST_CASE_MEASURED_MATCHER
-        formatter.format_measuring_test($1, $2, $3)
+        times = $4.split(',').map(&:to_f)
+        formatter.format_measuring_test($1, $2, $3, times)
       when TEST_CASE_PENDING_MATCHER
         formatter.format_pending_test($1, $2)
       when TEST_CASE_PASSED_MATCHER

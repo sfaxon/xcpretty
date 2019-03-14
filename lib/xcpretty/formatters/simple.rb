@@ -92,9 +92,9 @@ module XCPretty
       INDENT + format_test("#{test_case} [PENDING]", :pending)
     end
 
-    def format_measuring_test(suite, test_case, time)
+    def format_measuring_test(suite, test_case, average, times)
       INDENT + format_test(
-        "#{test_case} measured (#{colored_time(time)} seconds)", :measure
+        "#{test_case} measured (#{colored_time(average)} seconds) exact: #{times}", :measure
       )
     end
 
